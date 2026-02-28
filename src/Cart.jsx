@@ -1,0 +1,136 @@
+// import { useCart } from "./Cartcontext"; // adjust path if needed
+
+// export default function Cart() {
+
+//    const { cartItems, removeFromCart, decreaseQuantity, totalPrice } = useCart();
+
+//    return (
+//       <div className="p-6">
+//          <h1 className="text-3xl font-semibold mb-6">My Cart</h1>
+
+//          {cartItems.length === 0 ? (
+//             <p className="text-gray-500">Your cart is empty</p>
+//          ) : (
+//             <div className="space-y-4">
+//                {cartItems.map(item => (
+//                   <div key={item._id} className="flex gap-4 bg-white p-4 shadow rounded">
+
+//                      {item.image && (
+//                         <img
+//                            src={item.image}
+//                            alt={item.name}
+//                            className="w-20 h-20 object-cover rounded"
+//                         />
+//                      )}
+
+//                      <div className="flex-1">
+//                         <h2 className="font-semibold">{item.name}</h2>
+//                         <p>${item.price}</p>
+//                         <p>Qty: {item.quantity}</p>
+
+//                         <div className="flex gap-2 mt-2">
+//                            <button
+//                               onClick={() => decreaseQuantity(item._id)}
+//                               className="px-3 py-1 bg-gray-200 rounded"
+//                            >
+//                               -
+//                            </button>
+
+//                            <button
+//                               onClick={() => removeFromCart(item._id)}
+//                               className="px-3 py-1 bg-red-500 text-white rounded"
+//                            >
+//                               Remove
+//                            </button>
+//                         </div>
+//                      </div>
+
+//                   </div>
+//                ))}
+
+//                <div className="text-xl font-bold mt-6">
+//                   Total: ${totalPrice}
+//                </div>
+//             </div>
+//          )}
+//       </div>
+//    );
+// }
+
+
+import { useCart } from "./Cartcontext";
+import { useNavigate } from "react-router-dom";
+export default function Cart() {
+const navigate = useNavigate();
+  const {
+    cartItems,
+    removeFromCart,
+    decreaseQuantity,
+    totalPrice
+  } = useCart();
+
+  return (
+    <div className="p-6">
+      <h1 className="text-3xl font-semibold mb-6">My Cart</h1>
+
+      {cartItems.length === 0 ? (
+        <p className="text-gray-500">Your cart is empty</p>
+      ) : (
+        <div className="space-y-4">
+
+          {cartItems.map((item) => (
+            <div
+              key={item.productId}
+              className="flex gap-4 bg-white p-4 shadow rounded"
+            >
+
+              {item.image && (
+                <img
+                  src={`https://backend-4g4m.onrender.com${item.image}`}
+                  alt={item.name}
+                  className="w-20 h-20 object-cover rounded"
+                />
+              )}
+
+              <div className="flex-1">
+                <h2 className="font-semibold">{item.name}</h2>
+                <p>${item.price}</p>
+                <p>Qty: {item.quantity}</p>
+
+                <div className="flex gap-2 mt-2">
+
+                  <button
+                    onClick={() => decreaseQuantity(item.productId)}
+                    className="px-3 py-1 bg-gray-200 rounded"
+                  >
+                    -
+                  </button>
+
+                  <button
+                    onClick={() => removeFromCart(item.productId)}
+                    className="px-3 py-1 bg-red-500 text-white rounded"
+                  >
+                    Remove
+                  </button>
+                   <button
+        onClick={() => navigate("/checkout")}
+        className="mt-4 bg-green-600 text-white px-4 py-2 rounded"
+      >
+        Proceed to Order
+      </button>
+
+                </div>
+              </div>
+
+            </div>
+          ))}
+
+          <div className="text-xl font-bold mt-6">
+            Total: ${totalPrice}
+          </div>
+
+        </div>
+      )}
+    </div>
+  );
+}
