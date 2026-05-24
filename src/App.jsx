@@ -25,7 +25,7 @@ export default function App() {
 
      {/* Layout Route */}
      <Route path="/" element={<Firstpage/>}>
-        <Route path="home" element={<Home />} />
+{ <Route path="home" element={<Home />} /> }
         <Route path="product" element={<Product />} />
         <Route path="cart" element={<Cart />} />
         <Route path="admin" element={<AdminPanel/>} />

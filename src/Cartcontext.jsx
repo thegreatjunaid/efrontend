@@ -169,7 +169,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const res = await axios.delete(
-        `https://backend-4g4m.onrender.com/api/cart/remove/${productId}`,
+        `https://backend-4g4m.onrender.com/api/cart/delete/${productId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

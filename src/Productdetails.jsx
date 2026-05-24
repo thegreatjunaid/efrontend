@@ -1,7 +1,8 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Footer from "./Footer";
 import { useCart } from "./Cartcontext";
+
 function Productdetails() {
   const [added, setAdded] = useState(false);
   const { id } = useParams();
@@ -9,6 +10,7 @@ function Productdetails() {
   const [qty, setQty] = useState(1);
   const [loading, setLoading] = useState(true);
 const { addToCart } = useCart();
+const navigate = useNavigate();
   useEffect(() => {
     fetch(`https://backend-4g4m.onrender.com/api/product/${id}`)
       .then(res => res.json())
@@ -112,14 +114,21 @@ const { addToCart } = useCart();
           <div className="flex gap-4">
             
       <button
-  onClick={() => {
-      console.log("🛒 Button Clicked");
-    addToCart(product);
-     console.log(addToCart);
-      console.log("Product is:", product);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
-  }}
+ onClick={() => {
+
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Please login first");
+    navigate("/login");
+    return;
+  }
+
+  addToCart(product);
+
+  setAdded(true);
+  setTimeout(() => setAdded(false), 2000);
+}}
   disabled={added}
   className={`
     relative overflow-hidden w-full py-3 rounded-xl text-lg font-semibold
@@ -181,7 +190,7 @@ const { addToCart } = useCart();
         </p>
       </div>
 
-      <Footer />
+    
     </div>
   );
 }

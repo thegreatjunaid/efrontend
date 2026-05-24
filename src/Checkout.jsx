@@ -1,7 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Checkout() {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const selectedItems = location.state?.selectedItems || [];
 
   const [formData, setFormData] = useState({
     name: "",
@@ -9,19 +15,21 @@ export default function Checkout() {
     address: ""
   });
 
-
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const token = localStorage.getItem("token");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("token");
-
     await axios.post(
       "https://backend-4g4m.onrender.com/api/order",
-      formData,
+      {
+        ...formData,
+        items: selectedItems
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -30,75 +38,68 @@ export default function Checkout() {
     );
 
     alert("Order placed successfully!");
+    navigate("/orders");
   };
-  
 
- return (
-  <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-    
-    <div className="bg-white shadow-xl rounded-2xl w-full max-w-xl p-8">
-      
-      <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
-        Checkout
-      </h2>
+  return (
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 p-6">
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-xl">
 
-        {/* Name */}
-        <div>
-          <label className="block text-gray-600 mb-1">
-            Full Name
-          </label>
+        <h2 className="text-2xl font-bold mb-6">Checkout</h2>
+
+        {/* Selected Products */}
+        <div className="mb-6">
+          <h3 className="font-semibold mb-3">Selected Items</h3>
+
+          {selectedItems.map((item) => (
+            <div
+              key={item._id}
+              className="flex justify-between border-b py-2"
+            >
+              <p>{item.name}</p>
+              <p>${item.price * item.quantity}</p>
+            </div>
+          ))}
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+
           <input
             type="text"
             name="name"
-            placeholder="Enter your full name"
+            placeholder="Full Name"
             onChange={handleChange}
             required
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border p-3 rounded"
           />
-        </div>
 
-        {/* Phone */}
-        <div>
-          <label className="block text-gray-600 mb-1">
-            Phone Number
-          </label>
           <input
             type="text"
             name="phone"
-            placeholder="Enter your phone number"
+            placeholder="Phone"
             onChange={handleChange}
             required
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border p-3 rounded"
           />
-        </div>
 
-        {/* Address */}
-        <div>
-          <label className="block text-gray-600 mb-1">
-            Delivery Address
-          </label>
           <textarea
             name="address"
-            placeholder="Enter full delivery address"
+            placeholder="Address"
+            rows="3"
             onChange={handleChange}
             required
-            rows="4"
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border p-3 rounded"
           />
-        </div>
 
-        {/* Button */}
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition duration-300"
-        >
-          Place Order
-        </button>
+          <button className="w-full bg-blue-600 text-white py-3 rounded-lg">
+            Place Order
+          </button>
 
-      </form>
+        </form>
+
+      </div>
 
     </div>
-  </div>
-);}
+  );
+}
