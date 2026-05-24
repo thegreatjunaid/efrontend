@@ -1,42 +1,4 @@
-// import { Link } from "react-router-dom";
 
-// export default function Header() {
-//   return (
-//     <header className="bg-white shadow-md px-6 py-4 sticky top-0 z-50">
-//       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        
-//         {/* Logo */}
-//         <div className="text-2xl font-bold text-blue-600">
-//           <Link to="/">ShopX</Link>
-//         </div>
-
-//         {/* Navigation Links */}
-//         <nav className="hidden md:flex space-x-6 text-gray-700 font-medium">
-//           <Link to="/home" className="hover:text-blue-600">Home</Link>
-//           <Link to="/product" className="hover:text-blue-600">Products</Link>
-//           <Link to="/cart" className="hover:text-blue-600">Cart</Link>
-//           <Link to="/about" className="hover:text-blue-600">About</Link>
-//           <Link to="/contact" className="hover:text-blue-600">Contact</Link>
-//         </nav>
-
-//         {/* Login Button */}
-//         <div className="hidden md:block">
-//           <Link
-//             to="/login"
-//             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
-//           >
-//             Login
-//           </Link>
-//         </div>
-
-//         {/* Mobile Menu Button */}
-//         <button className="md:hidden text-gray-700 text-2xl">
-//           &#9776;
-//         </button>
-//       </div>
-//     </header>
-//   );
-// }
 
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -286,7 +248,7 @@ export default function Header() {
           <div className="header-top">
 
             {/* LOGO */}
-            <Link to="/home" className="logo-link">
+            <Link to="/" className="logo-link">
               <img src="/logo.png.png" alt="Junaid Store" />
             </Link>
 
