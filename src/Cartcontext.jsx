@@ -109,7 +109,7 @@ export const CartProvider = ({ children }) => {
         return;
       }
 
-      const res = await axios.get("https://backend-4g4m.onrender.com/api/cart", {
+      const res = await axios.get("http://localhost:5000/api/cart", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -146,7 +146,7 @@ export const CartProvider = ({ children }) => {
     try {
        console.log("🔥 addToCart function running");
       const res = await axios.post(
-        "https://backend-4g4m.onrender.com/api/cart/add",
+        "http://localhost:5000/api/cart/add",
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -169,7 +169,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const res = await axios.delete(
-        `https://backend-4g4m.onrender.com/api/cart/delete/${productId}`,
+        `http://localhost:5000/api/cart/delete/${productId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -191,7 +191,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const res = await axios.put(
-        "https://backend-4g4m.onrender.com/api/cart/update",
+        "http://localhost:5000/api/cart/update",
         {
           productId,
           quantity: item.quantity - 1,

@@ -32,7 +32,7 @@ export default function Register({ switchPage }) {
     e.preventDefault();
 
     try {
-      const res = await axios.post("https://backend-4g4m.onrender.com/api/register", {
+      const res = await axios.post("http://localhost:5000/api/register", {
         email,
         password,
       });
@@ -55,7 +55,7 @@ export default function Register({ switchPage }) {
     }
 
     try {
-      const res = await axios.post("https://backend-4g4m.onrender.com/api/verify-otp", {
+      const res = await axios.post("http://localhost:5000/api/verify-otp", {
         email,
         otp,
       });
@@ -79,7 +79,7 @@ export default function Register({ switchPage }) {
   // Resend OTP
   const handleResendOtp = async () => {
     try {
-      const res = await axios.post("https://backend-4g4m.onrender.com/api/resend-otp", {
+      const res = await axios.post("http://localhost:5000/api/resend-otp", {
         email,
       });
 

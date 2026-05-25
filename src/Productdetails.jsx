@@ -12,7 +12,7 @@ function Productdetails() {
 const { addToCart } = useCart();
 const navigate = useNavigate();
   useEffect(() => {
-    fetch(`https://backend-4g4m.onrender.com/api/product/${id}`)
+    fetch(`http://localhost:5000/api/product/${id}`)
       .then(res => res.json())
       .then(data => {
         setProduct(data);
@@ -43,7 +43,7 @@ const navigate = useNavigate();
         {/* LEFT SIDE IMAGE */}
         <div>
           <img
-            src={`https://backend-4g4m.onrender.com${product.image}`}
+            src={`http://localhost:5000${product.image}`}
             alt={product.name}
             className="w-full h-[450px] object-cover rounded-2xl shadow-lg"
           />

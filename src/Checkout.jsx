@@ -25,7 +25,7 @@ export default function Checkout() {
     e.preventDefault();
 
     await axios.post(
-      "https://backend-4g4m.onrender.com/api/order",
+      "http://localhost:5000/api/order",
       {
         ...formData,
         items: selectedItems

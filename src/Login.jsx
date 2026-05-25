@@ -13,7 +13,7 @@ export default function Login({ switchPage }) {
     e.preventDefault();
 
     try {
-      const res = await axios.post("https://backend-4g4m.onrender.com/login", {
+      const res = await axios.post("http://localhost:5000/login", {
         email,
         password,
       });
