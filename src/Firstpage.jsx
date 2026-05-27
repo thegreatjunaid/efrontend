@@ -19,6 +19,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import CategoryBar from "./CategoryBar";
+import CartDrawer from "./CartDrawer";
 
 // ─── DATA ──────────────────────────────────────────────────────
 
@@ -289,6 +290,7 @@ export default function Firstpage() {
       onMouseMove={handleMouseMove}
     >
       <Header />
+      <CartDrawer/>
 
       {/* Mouse glow — original */}
       <motion.div

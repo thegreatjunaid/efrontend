@@ -82,15 +82,19 @@
 //    return useContext(CartContext);
 // }
 
-
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [isOpen, setIsOpen] = useState(false); // 👈 new
+
+  const toggleCart = () => setIsOpen((prev) => !prev); // 👈 new
+  const closeCart = () => setIsOpen(false);             // 👈 new
 
   // ✅ REFRESH TOKEN WHEN LOCALSTORAGE CHANGES
   useEffect(() => {
@@ -105,15 +109,14 @@ export const CartProvider = ({ children }) => {
   const loadCart = async () => {
     try {
       if (!token) {
-        setCartItems([]); // logout case
+        setCartItems([]);
         return;
       }
 
-      const res = await axios.get("http://localhost:5000/api/cart", {
+      const res = await axios.get("https://backend-4g4m.onrender.com/api/cart", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // 🔥 filter out invalid or null items
       const validItems =
         res.data.cart?.items?.filter(
           (i) => i && typeof i.price === "number" && i.productId
@@ -136,21 +139,20 @@ export const CartProvider = ({ children }) => {
     if (!token) return;
 
     const payload = {
-      productId: product._id, // must exist
+      productId: product._id,
       name: product.name,
       price: product.price || 0,
       image: product.image || "",
       quantity: 1,
     };
-         console.log("Sending to backend:", payload);
+
     try {
-       console.log("🔥 addToCart function running");
       const res = await axios.post(
-        "http://localhost:5000/api/cart/add",
+        "https://backend-4g4m.onrender.com/api/cart/add",
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      
+
       const validItems =
         res.data.cart?.items?.filter(
           (i) => i && typeof i.price === "number" && i.productId
@@ -158,6 +160,7 @@ export const CartProvider = ({ children }) => {
 
       setCartItems(validItems);
       toast.success(`${product.name} added to cart 🛒`);
+      setIsOpen(true); // 👈 auto-open drawer when item is added
     } catch (err) {
       console.log("Add to cart failed:", err.message);
     }
@@ -169,7 +172,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const res = await axios.delete(
-        `http://localhost:5000/api/cart/delete/${productId}`,
+        `https://backend-4g4m.onrender.com/api/cart/delete/${productId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -191,7 +194,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const res = await axios.put(
-        "http://localhost:5000/api/cart/update",
+        "https://backend-4g4m.onrender.com/api/cart/update",
         {
           productId,
           quantity: item.quantity - 1,
@@ -210,10 +213,9 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // ✅ TOTAL PRICE (safe against null items)
+  // ✅ TOTAL PRICE
   const totalPrice = cartItems.reduce(
-    (acc, item) =>
-      acc + (item?.price || 0) * (item?.quantity || 0),
+    (acc, item) => acc + (item?.price || 0) * (item?.quantity || 0),
     0
   );
 
@@ -227,6 +229,9 @@ export const CartProvider = ({ children }) => {
         totalPrice,
         loadCart,
         setToken,
+        isOpen,     // 👈 new
+        toggleCart, // 👈 new
+        closeCart,  // 👈 new
       }}
     >
       {children}

@@ -1,7 +1,6 @@
-
-
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useCart } from "./Cartcontext";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -9,6 +8,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navigate = useNavigate();
+  const { toggleCart, cartItems } = useCart();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -27,6 +27,8 @@ export default function Header() {
     localStorage.removeItem("token");
     window.location.reload();
   };
+
+  const cartCount = cartItems?.length || 0;
 
   return (
     <>
@@ -147,6 +149,43 @@ export default function Header() {
           background: rgba(212,175,55,0.08);
         }
 
+        /* CART ICON BUTTON */
+        .cart-btn {
+          position: relative;
+          background: none;
+          border: none;
+          color: rgba(255,255,255,0.78);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.45rem 0.75rem;
+          border-radius: 6px;
+          transition: color 0.2s, background 0.2s;
+        }
+        .cart-btn:hover {
+          color: #d4af37;
+          background: rgba(212,175,55,0.08);
+        }
+        .cart-badge {
+          position: absolute;
+          top: 2px;
+          right: 4px;
+          background: linear-gradient(135deg, #d4af37, #c49a1a);
+          color: #0a1628;
+          font-size: 0.6rem;
+          font-weight: 700;
+          min-width: 16px;
+          height: 16px;
+          border-radius: 999px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0 3px;
+          line-height: 1;
+          font-family: 'DM Sans', sans-serif;
+        }
+
         /* DIVIDER between nav links and auth buttons */
         .nav-divider {
           width: 1px;
@@ -224,6 +263,28 @@ export default function Header() {
         .mobile-menu a:hover { background: rgba(212,175,55,0.08); color: #d4af37; }
         .mobile-menu .btn { display: inline-block; width: fit-content; }
 
+        /* MOBILE CART BTN */
+        .mobile-cart-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: none;
+          border: none;
+          color: rgba(255,255,255,0.82);
+          font-size: 0.9rem;
+          font-weight: 500;
+          padding: 0.55rem 0.85rem;
+          border-radius: 7px;
+          cursor: pointer;
+          font-family: 'DM Sans', sans-serif;
+          transition: background 0.2s, color 0.2s;
+          text-align: left;
+        }
+        .mobile-cart-btn:hover {
+          background: rgba(212,175,55,0.08);
+          color: #d4af37;
+        }
+
         /* BOTTOM ACCENT LINE */
         .header-accent {
           height: 2px;
@@ -276,7 +337,18 @@ export default function Header() {
             <nav className="desktop-nav">
               <Link to="/home" className="nav-link">Home</Link>
               <Link to="/product" className="nav-link">Products</Link>
-              <Link to="/cart" className="nav-link">Cart</Link>
+
+              {/* CART ICON */}
+              <button onClick={toggleCart} className="cart-btn" aria-label="Open cart">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                  <line x1="3" y1="6" x2="21" y2="6"/>
+                  <path d="M16 10a4 4 0 01-8 0"/>
+                </svg>
+                {cartCount > 0 && (
+                  <span className="cart-badge">{cartCount}</span>
+                )}
+              </button>
 
               <div className="nav-divider" />
 
@@ -311,7 +383,16 @@ export default function Header() {
             <nav className="mobile-menu">
               <Link to="/home">Home</Link>
               <Link to="/product">Products</Link>
-              <Link to="/cart">Cart</Link>
+
+              {/* MOBILE CART BUTTON */}
+              <button onClick={() => { toggleCart(); setMenuOpen(false); }} className="mobile-cart-btn" aria-label="Open cart">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                  <line x1="3" y1="6" x2="21" y2="6"/>
+                  <path d="M16 10a4 4 0 01-8 0"/>
+                </svg>
+                Cart {cartCount > 0 && `(${cartCount})`}
+              </button>
 
               {!isLoggedIn ? (
                 <>

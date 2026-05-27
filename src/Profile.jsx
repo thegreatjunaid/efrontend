@@ -15,7 +15,7 @@ import Ordered from "./Ordered";
         const userId = localStorage.getItem("userId");
 
         const res = await axios.get(
-          `http://localhost:5000/api/profile/${userId}`
+          `https://backend-4g4m.onrender.com/api/profile/${userId}`
         );
 
         setUser(res.data);
@@ -48,7 +48,7 @@ import Ordered from "./Ordered";
         )}
 
         <img
-          src={`http://localhost:5000${user.image}`}
+          src={`https://backend-4g4m.onrender.com${user.image}`}
           alt="profile"
           className="w-32 h-32 rounded-full object-cover mb-4"
         />

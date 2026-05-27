@@ -9,7 +9,7 @@ export default function Ordered() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/orders/my", {
+        const res = await axios.get("https://backend-4g4m.onrender.com/api/orders/my", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -65,7 +65,7 @@ export default function Ordered() {
                   className="flex items-center gap-4 border-b pb-3"
                 >
                   <img
-                    src={`http://localhost:5000${item.image}`}
+                    src={`https://backend-4g4m.onrender.com${item.image}`}
                     alt={item.name}
                     className="w-20 h-20 object-cover rounded-md"
                   />

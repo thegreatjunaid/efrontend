@@ -6,7 +6,7 @@ export default function SearchResult() {
   const [products, setProducts] = useState([]);
     const navigate = useNavigate();
   useEffect(() => {
-    fetch(`http://localhost:5000/api/product/search?q=${keyword}`)
+    fetch(`https://backend-4g4m.onrender.com/api/product/search?q=${keyword}`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error(err));
@@ -35,7 +35,7 @@ export default function SearchResult() {
               className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition"
             >
               <img
-                src={`http://localhost:5000${product.image}`}
+                src={`https://backend-4g4m.onrender.com${product.image}`}
                 alt={product.name}
                 className="h-40 w-full object-cover rounded-md mb-3"
               />
