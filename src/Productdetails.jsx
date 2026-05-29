@@ -25,8 +25,7 @@ function Productdetails() {
   }, [id]);
 
   const handleAddToCart = () => {
-    const token = localStorage.getItem("token");
-    if (!token) { alert("Please login first"); navigate("/login"); return; }
+    
     addToCart(product);
     setAdded(true);
     setTimeout(() => setAdded(false), 2200);

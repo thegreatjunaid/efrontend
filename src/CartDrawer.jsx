@@ -289,7 +289,7 @@ function CartDrawer() {
               <span>৳{totalPrice.toFixed(2)}</span>
             </div>
             <Link to="/checkout" onClick={closeCart} className="checkout-btn">
-              View Full Cart →
+              Checkout
             </Link>
           </div>
         )}

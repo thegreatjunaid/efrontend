@@ -354,8 +354,8 @@ export default function Header() {
 
               {!isLoggedIn ? (
                 <>
-                  <Link to="/login" className="btn btn-login">Login</Link>
-                  <Link to="/register" className="btn btn-register">Register</Link>
+                  <Link to="/login" className="btn btn-login">Signup</Link>
+                  
                 </>
               ) : (
                 <>

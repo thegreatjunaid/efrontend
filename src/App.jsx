@@ -12,6 +12,7 @@ import Productdetails from "./Productdetails.jsx";
 import Checkout from "./Checkout";
 import SearchResult from "./SearchResult";
 import { Toaster } from "react-hot-toast";
+import AuthSuccess from "./AuthSuccess.jsx";
 
 <Toaster position="top-right" />
 // inside <Routes>
@@ -39,7 +40,7 @@ export default function App() {
      {/* Auth Pages */}
      <Route path="/login" element={<Login />} />
      <Route path="/register" element={<Register />} />
-
+<Route path="/auth/success" element={<AuthSuccess/>}/>
   </Routes>
 </Router>
 

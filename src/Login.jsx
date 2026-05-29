@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Login({ switchPage }) {
@@ -24,7 +24,7 @@ export default function Login({ switchPage }) {
         setMsg({ text: "Login successful! Redirecting…", type: "success" });
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.userId);
-        setTimeout(() => navigate("/home"), 1200);
+        setTimeout(() => navigate("/"), 1200);
       } else {
         setMsg({ text: "Invalid email or password.", type: "error" });
       }
@@ -192,22 +192,23 @@ export default function Login({ switchPage }) {
 
         {/* Google */}
         <motion.button
-          whileHover={{ background: "rgba(255,255,255,0.1)" }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full flex items-center justify-center gap-2 mb-6"
-          style={{
-            padding: "11px",
-            background: "rgba(255,255,255,0.06)",
-            border: "0.5px solid rgba(255,255,255,0.18)",
-            borderRadius: 11,
-            color: "#fff",
-            fontSize: 14,
-            cursor: "pointer",
-          }}
-        >
-          <GoogleIcon />
-          Continue with Google
-        </motion.button>
+  onClick={() => window.location.href = "https://backend-4g4m.onrender.com/auth/google"}
+  whileHover={{ background: "rgba(255,255,255,0.1)" }}
+  whileTap={{ scale: 0.98 }}
+  className="w-full flex items-center justify-center gap-2 mb-6"
+  style={{
+    padding: "11px",
+    background: "rgba(255,255,255,0.06)",
+    border: "0.5px solid rgba(255,255,255,0.18)",
+    borderRadius: 11,
+    color: "#fff",
+    fontSize: 14,
+    cursor: "pointer",
+  }}
+>
+  <GoogleIcon />
+  Continue with Google
+</motion.button>
 
         {/* Register link */}
         <p className="text-center" style={{ fontSize: 13, color: "rgba(255,255,255,0.4)" }}>
@@ -217,7 +218,7 @@ export default function Login({ switchPage }) {
             style={{ color: "#e8c84a", cursor: "pointer" }}
             className="hover:underline"
           >
-            Register
+            <Link to="/register" className="btn btn-register">Register</Link>
           </span>
         </p>
       </motion.div>

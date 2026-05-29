@@ -10,6 +10,7 @@ export default function Register({ switchPage }) {
   const [successModal, setSuccessModal] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
   const [loading, setLoading] = useState(false);
+  
 
   useEffect(() => {
     if (!showOtp || timeLeft <= 0) return;
