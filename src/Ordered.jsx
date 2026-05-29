@@ -18,7 +18,7 @@ export default function Ordered() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("https://backend-4g4m.onrender.com/api/orders/my", {
+        const res = await axios.get("http://localhost:5000/api/orders/my", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setOrders(res.data);
@@ -157,7 +157,7 @@ export default function Ordered() {
                           ? "0.5px solid rgba(255,255,255,0.06)" : "none",
                       }}>
                         <img
-                          src={`https://backend-4g4m.onrender.com${item.image}`}
+                          src={`http://localhost:5000${item.image}`}
                           alt={item.name}
                           style={{
                             width: 52, height: 52, borderRadius: 10,

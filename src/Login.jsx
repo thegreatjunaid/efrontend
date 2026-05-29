@@ -18,7 +18,7 @@ export default function Login({ switchPage }) {
     setMsg({ text: "", type: "" });
 
     try {
-      const res = await axios.post("https://backend-4g4m.onrender.com/login", { email, password });
+      const res = await axios.post("http://localhost:5000/login", { email, password });
 
       if (res.data.success) {
         setMsg({ text: "Login successful! Redirecting…", type: "success" });
@@ -192,7 +192,7 @@ export default function Login({ switchPage }) {
 
         {/* Google */}
         <motion.button
-  onClick={() => window.location.href = "https://backend-4g4m.onrender.com/auth/google"}
+  onClick={() => window.location.href = "http://localhost:5000/auth/google"}
   whileHover={{ background: "rgba(255,255,255,0.1)" }}
   whileTap={{ scale: 0.98 }}
   className="w-full flex items-center justify-center gap-2 mb-6"

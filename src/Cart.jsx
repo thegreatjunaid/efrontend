@@ -138,7 +138,7 @@ export default function Cart() {
 
               {item.image && (
                 <img
-                  src={`https://backend-4g4m.onrender.com${item.image}`}
+                  src={`http://localhost:5000${item.image}`}
                   alt={item.name}
                   className="w-20 h-20 object-cover rounded"
                 />

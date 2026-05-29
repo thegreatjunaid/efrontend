@@ -18,7 +18,7 @@ function Productdetails() {
   const [wished, setWished] = useState(false);
 
   useEffect(() => {
-    fetch(`https://backend-4g4m.onrender.com/api/product/${id}`)
+    fetch(`http://localhost:5000/api/product/${id}`)
       .then((res) => res.json())
       .then((data) => { setProduct(data); setLoading(false); })
       .catch(() => setLoading(false));
@@ -73,7 +73,7 @@ function Productdetails() {
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}>
             <div className="relative rounded-2xl overflow-hidden" style={{ background: "#dde8f8", height: 420 }}>
               <img
-                src={`https://backend-4g4m.onrender.com${product.image}`}
+                src={`http://localhost:5000${product.image}`}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />

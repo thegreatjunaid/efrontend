@@ -13,6 +13,7 @@ import Checkout from "./Checkout";
 import SearchResult from "./SearchResult";
 import { Toaster } from "react-hot-toast";
 import AuthSuccess from "./AuthSuccess.jsx";
+import TrackOrder from "./TrackOrder.jsx";
 
 <Toaster position="top-right" />
 // inside <Routes>
@@ -35,6 +36,7 @@ export default function App() {
        <Route path="/product/:id" element={<Productdetails />} />
        <Route path="/search/:keyword" element={<SearchResult />} />
        <Route path="/checkout" element={<Checkout />} />
+       <Route path="/track" element={<TrackOrder />} />
      </Route>
 
      {/* Auth Pages */}

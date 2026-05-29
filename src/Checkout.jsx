@@ -13,6 +13,7 @@ export default function Checkout() {
   const [formData, setFormData] = useState({ name: "", phone: "", address: "" });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [orderId, setOrderId] = useState(null);
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -22,24 +23,24 @@ export default function Checkout() {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.post(
-        "https://backend-4g4m.onrender.com/api/order",
+      const res = await axios.post(
+        "http://localhost:5000/api/order",
         {
           address: formData.address,
           phone: formData.phone,
           items: selectedItems,
-          // send guest info if not logged in
           guestName: isGuest ? formData.name : null,
           guestEmail: isGuest ? formData.email : null,
         },
         {
-          // send token only if logged in
           headers: token ? { Authorization: `Bearer ${token}` } : {}
         }
       );
 
+      const id = res.data.orderId || res.data._id || res.data.order?._id;
+      setOrderId(id);
       setSuccess(true);
-      setTimeout(() => navigate("/"), 2000);
+      setTimeout(() => navigate("/"), 18000);
     } catch (err) {
       console.error("Order failed:", err.message);
       toast.error("Failed to place order. Try again.");
@@ -159,7 +160,7 @@ export default function Checkout() {
           border: 0.5px solid rgba(201,162,39,0.25);
           font-size: 12.5px; color: rgba(201,162,39,0.85);
         }
-        .success-overlay { text-align: center; padding: 32px 0 8px; }
+        .success-overlay { text-align: center; padding: 24px 0 8px; }
         .success-icon {
           width: 64px; height: 64px; border-radius: 50%;
           background: rgba(212,175,55,0.12);
@@ -172,6 +173,39 @@ export default function Checkout() {
           font-size: 1.4rem; color: #d4af37; margin: 0 0 8px;
         }
         .success-sub { font-size: 14px; color: rgba(255,255,255,0.45); margin: 0; }
+        .order-id-box {
+          margin-top: 20px;
+          padding: 14px 18px;
+          background: rgba(212,175,55,0.08);
+          border: 1px solid rgba(212,175,55,0.25);
+          border-radius: 10px;
+          text-align: left;
+        }
+        .order-id-label {
+          font-size: 11px;
+          color: rgba(212,175,55,0.7);
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          margin: 0 0 6px;
+          font-weight: 600;
+        }
+        .order-id-value {
+          font-size: 13.5px;
+          color: #f0f0f0;
+          margin: 0;
+          font-family: monospace;
+          word-break: break-all;
+        }
+        .order-id-hint {
+          font-size: 12px;
+          color: rgba(255,255,255,0.35);
+          margin: 8px 0 0;
+        }
+        .redirect-note {
+          font-size: 12px;
+          color: rgba(255,255,255,0.2);
+          margin-top: 18px;
+        }
         .page-heading { width: 100%; max-width: 900px; margin-bottom: 28px; }
         .page-heading h1 {
           font-family: 'Playfair Display', serif;
@@ -186,6 +220,11 @@ export default function Checkout() {
           border-radius: 50%;
           animation: spin 0.7s linear infinite;
         }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .order-id-box { animation: fadeIn 0.4s ease 0.2s both; }
       `}</style>
 
       <div className="checkout-root">
@@ -217,7 +256,7 @@ export default function Checkout() {
                 selectedItems.map((item) => {
                   const imgSrc = item.image
                     ? item.image.startsWith("http") ? item.image
-                      : `https://backend-4g4m.onrender.com${item.image.startsWith("/") ? "" : "/"}${item.image}`
+                      : `http://localhost:5000${item.image.startsWith("/") ? "" : "/"}${item.image}`
                     : null;
                   return (
                     <div key={item.productId} className="order-item">
@@ -262,6 +301,16 @@ export default function Checkout() {
                   </div>
                   <h3 className="success-title">Order Placed!</h3>
                   <p className="success-sub">Thank you for your order!</p>
+
+                  {orderId && (
+                    <div className="order-id-box">
+                      <p className="order-id-label">Order ID</p>
+                      <p className="order-id-value">#{orderId}</p>
+                      <p className="order-id-hint">Save this ID to track your order status</p>
+                    </div>
+                  )}
+
+                  <p className="redirect-note">Redirecting to home in 3 seconds...</p>
                 </div>
               ) : (
                 <>

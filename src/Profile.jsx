@@ -13,7 +13,7 @@ export default function Profile() {
     const fetchProfile = async () => {
       try {
         const userId = localStorage.getItem("userId");
-        const res = await axios.get(`https://backend-4g4m.onrender.com/api/profile/${userId}`);
+        const res = await axios.get(`http://localhost:5000/api/profile/${userId}`);
         setUser(res.data);
       } catch (err) {
         console.log(err);
@@ -87,7 +87,7 @@ export default function Profile() {
           {/* Avatar */}
           {user.image ? (
             <img
-              src={`https://backend-4g4m.onrender.com${user.image}`}
+              src={`http://localhost:5000${user.image}`}
               alt="profile"
               style={{
                 width: 82, height: 82, borderRadius: "50%", objectFit: "cover", flexShrink: 0,

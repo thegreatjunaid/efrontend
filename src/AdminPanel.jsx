@@ -15,7 +15,7 @@
 //   // 🔹 Fetch all products
 //   const fetchProducts = async () => {
 //     try {
-//       const res = await axios.get("https://backend-4g4m.onrender.com/api/products");
+//       const res = await axios.get("http://localhost:5000/api/products");
 //       setProducts(res.data);
 //     } catch (err) {
 //       console.error("Error fetching products:", err);
@@ -25,7 +25,7 @@
 //   // 🔹 Fetch all orders
 //   const fetchOrders = async () => {
 //     try {
-//       const res = await axios.get("https://backend-4g4m.onrender.com/api/orders");
+//       const res = await axios.get("http://localhost:5000/api/orders");
 //       setOrders(res.data);
 //     } catch (err) {
 //       console.error("Error fetching orders:", err);
@@ -50,7 +50,7 @@
 //       formData.append("description", description);
 //       if (image) formData.append("image", image);
 
-//       await axios.post("https://backend-4g4m.onrender.com/api/products", formData, {
+//       await axios.post("http://localhost:5000/api/products", formData, {
 //         headers: { "Content-Type": "multipart/form-data" },
 //       });
 
@@ -67,7 +67,7 @@
 //   // 🔹 Delete product
 //   const handleDelete = async (id) => {
 //     try {
-//       await axios.delete(`https://backend-4g4m.onrender.com/api/products/${id}`);
+//       await axios.delete(`http://localhost:5000/api/products/${id}`);
 //       fetchProducts();
 //     } catch (err) {
 //       console.error("Error deleting product:", err);
@@ -77,7 +77,7 @@
 //   // 🔹 Change order status
 //   const handleChangeStatus = async (orderId) => {
 //     try {
-//       const res = await axios.put(`https://backend-4g4m.onrender.com/api/orders/${orderId}/status`);
+//       const res = await axios.put(`http://localhost:5000/api/orders/${orderId}/status`);
 //       console.log("Order status updated:", res.data);
 
 //       // Update orders state
@@ -139,7 +139,7 @@
 //           {products.map((product) => (
 //             <div key={product._id} className="bg-white p-4 rounded shadow">
 //               <img
-//                 src={`https://backend-4g4m.onrender.com${product.image}`}
+//                 src={`http://localhost:5000${product.image}`}
 //                 alt={product.name}
 //                 className="w-full h-40 object-cover mb-3 rounded"
 //               />
@@ -228,7 +228,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
- const API = "https://backend-4g4m.onrender.com";
+ const API = "http://localhost:5000";
 
 const AdminPanel = () => {
   // ================================

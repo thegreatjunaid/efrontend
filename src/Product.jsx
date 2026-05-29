@@ -4,7 +4,7 @@ import { ShoppingBag, Heart, Eye, Loader2, SlidersHorizontal } from "lucide-reac
 import { useNavigate } from "react-router-dom";
 import { useCart } from "./Cartcontext";
 
-const BASE_URL = "https://backend-4g4m.onrender.com";
+const BASE_URL = "http://localhost:5000";
 
 const CATEGORIES = [
   { label: "All",         value: null,          emoji: "✨" },

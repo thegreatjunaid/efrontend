@@ -337,7 +337,7 @@ export default function Header() {
             <nav className="desktop-nav">
               <Link to="/home" className="nav-link">Home</Link>
               <Link to="/product" className="nav-link">Products</Link>
-
+               <Link to="/track" className="nav-link">TrackOrder</Link>
               {/* CART ICON */}
               <button onClick={toggleCart} className="cart-btn" aria-label="Open cart">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -355,7 +355,7 @@ export default function Header() {
               {!isLoggedIn ? (
                 <>
                   <Link to="/login" className="btn btn-login">Signup</Link>
-                  
+                  <Link to="/register" className="btn btn-register">Register</Link>
                 </>
               ) : (
                 <>
@@ -383,7 +383,7 @@ export default function Header() {
             <nav className="mobile-menu">
               <Link to="/home">Home</Link>
               <Link to="/product">Products</Link>
-
+<Link to="/track">TrackOrder</Link>
               {/* MOBILE CART BUTTON */}
               <button onClick={() => { toggleCart(); setMenuOpen(false); }} className="mobile-cart-btn" aria-label="Open cart">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -396,8 +396,8 @@ export default function Header() {
 
               {!isLoggedIn ? (
                 <>
-                  <Link to="/login" className="btn btn-login">Login</Link>
-                  <Link to="/register" className="btn btn-register">Register</Link>
+                  <Link to="/login" className="btn btn-login">Signup</Link>
+                 
                 </>
               ) : (
                 <>
