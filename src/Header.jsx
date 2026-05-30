@@ -26,6 +26,7 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.reload();
+    navigate("/");
   };
 
   const cartCount = cartItems?.length || 0;
