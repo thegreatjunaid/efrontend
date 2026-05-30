@@ -250,7 +250,7 @@ function Productdetails() {
         </motion.div>
 
       </div>
-      <Footer />
+     
     </div>
   );
 }
