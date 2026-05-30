@@ -24,7 +24,7 @@ export default function Checkout() {
       const token = localStorage.getItem("token");
 
       const res = await axios.post(
-        "http://localhost:5000/api/order",
+        "https://backend-4g4m.onrender.com/api/order",
         {
           address: formData.address,
           phone: formData.phone,
@@ -256,7 +256,7 @@ export default function Checkout() {
                 selectedItems.map((item) => {
                   const imgSrc = item.image
                     ? item.image.startsWith("http") ? item.image
-                      : `http://localhost:5000${item.image.startsWith("/") ? "" : "/"}${item.image}`
+                      : `https://backend-4g4m.onrender.com${item.image.startsWith("/") ? "" : "/"}${item.image}`
                     : null;
                   return (
                     <div key={item.productId} className="order-item">

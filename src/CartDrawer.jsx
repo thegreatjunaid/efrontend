@@ -202,7 +202,7 @@ function CartDrawer() {
               const imgSrc = item.image
                 ? item.image.startsWith("http")
                   ? item.image
-                  : `http://localhost:5000${item.image.startsWith("/") ? "" : "/"}${item.image}`
+                  : `https://backend-4g4m.onrender.com${item.image.startsWith("/") ? "" : "/"}${item.image}`
                 : null;
 
               return (

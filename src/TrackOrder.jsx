@@ -24,7 +24,7 @@ export default function TrackOrder() {
     setError("");
     setOrder(null);
     try {
-      const res = await axios.get(`http://localhost:5000/api/order/track/${orderId.trim()}`);
+      const res = await axios.get(`https://backend-4g4m.onrender.com/api/order/track/${orderId.trim()}`);
       setOrder(res.data);
     } catch (err) {
       setError(err.response?.data?.message || "Order not found. Check your Order ID.");
@@ -404,7 +404,7 @@ export default function TrackOrder() {
                 {order.items?.map((item, i) => {
                   const imgSrc = item.image
                     ? item.image.startsWith("http") ? item.image
-                      : `http://localhost:5000${item.image.startsWith("/") ? "" : "/"}${item.image}`
+                      : `https://backend-4g4m.onrender.com${item.image.startsWith("/") ? "" : "/"}${item.image}`
                     : null;
                   return (
                     <div key={i} className="order-item">

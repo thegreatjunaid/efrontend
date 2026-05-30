@@ -3,7 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const CartContext = createContext();
-const API = "http://localhost:5000";
+const API = "https://backend-4g4m.onrender.com";
 const COOKIE_NAME = "guest_cart";
 const COOKIE_DAYS = 7;
 

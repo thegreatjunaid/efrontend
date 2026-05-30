@@ -28,7 +28,7 @@ export default function Register({ switchPage }) {
     setLoading(true);
     setMsg({ text: "", type: "" });
     try {
-      const res = await axios.post("http://localhost:5000/api/register", { email, password });
+      const res = await axios.post("https://backend-4g4m.onrender.com/api/register", { email, password });
       setMsg({ text: res.data.message, type: "success" });
       setShowOtp(true);
       setTimeLeft(res.data.otpValidity || 180);
@@ -47,7 +47,7 @@ export default function Register({ switchPage }) {
     }
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/verify-otp", { email, otp });
+      const res = await axios.post("https://backend-4g4m.onrender.com/api/verify-otp", { email, otp });
       if (res.data.success) {
         setSuccessModal(true);
         setMsg({ text: "", type: "" });
@@ -64,7 +64,7 @@ export default function Register({ switchPage }) {
 
   const handleResendOtp = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/api/resend-otp", { email });
+      const res = await axios.post("https://backend-4g4m.onrender.com/api/resend-otp", { email });
       setMsg({ text: res.data.message, type: "success" });
       setTimeLeft(res.data.otpValidity || 180);
     } catch (err) {

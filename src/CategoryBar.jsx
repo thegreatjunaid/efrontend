@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 // ─── BASE URL ──────────────────────────────────────────────────
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://backend-4g4m.onrender.com";
 
 // ─── CATEGORY CONFIG ───────────────────────────────────────────
 const CATEGORIES = [
